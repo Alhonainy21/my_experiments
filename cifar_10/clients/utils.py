@@ -55,7 +55,7 @@ class Net(nn.Module):
 def ResNet18():
     """Returns a ResNet18 model from TorchVision adapted for CIFAR-10."""
 
-    model = resnet18(num_classes=10)
+    model = resnet18(num_classes=5)
 
     # replace w/ smaller input layer
     model.conv1 = torch.nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)
@@ -68,7 +68,7 @@ def ResNet18():
 def ResNet50():
     """Returns a ResNet50 model from TorchVision adapted for CIFAR-10."""
 
-    model = resnet50(num_classes=10)
+    model = resnet50(num_classes=5)
 
     # replace w/ smaller input layer
     model.conv1 = torch.nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)
