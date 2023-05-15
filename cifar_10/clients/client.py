@@ -15,6 +15,10 @@ import utils
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # pylint: enable=no-member
 
+if torch.cuda.is_available():
+    print("GPU is available")
+else:
+    print("CPU is being used")
 
 def get_weights(model: torch.nn.ModuleList) -> fl.common.Weights:
     """Get model weights as a list of NumPy ndarrays."""
