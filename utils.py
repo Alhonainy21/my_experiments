@@ -136,7 +136,7 @@ def train(
     # Train the network
     for epoch in range(epochs):  # loop over the dataset multiple times
         running_loss = 0.0
-        for i, data in enumerate(tqdm(trainloader), 0):
+        for i, data in enumerate(tqdm(trainloader, ascii=True), 0):
             images, labels = data[0].to(device), data[1].to(device)
 
             # zero the parameter gradients
