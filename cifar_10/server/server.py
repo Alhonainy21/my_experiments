@@ -67,7 +67,7 @@ parser.add_argument(
     "--model",
     type=str,
     default="ResNet18",
-    choices=["Net", "ResNet18","ResNet50"],
+    choices=["Net", "ResNet18","ResNet50","DenseNet121","MobileNetV2"],
     help="model to train",
 )
 parser.add_argument(
