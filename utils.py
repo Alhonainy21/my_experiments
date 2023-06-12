@@ -11,6 +11,7 @@ from torch import Tensor
 from torchvision import datasets
 from torchvision.models import resnet18
 from torchvision.models import resnet50
+from torchvision.models import densenet121, mobilenet_v2
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 #DATA_ROOT = Path("/home/ahmad/embedded_devices/my_data_1")
@@ -78,6 +79,26 @@ def ResNet50():
 
     return model
 
+def DenseNet121():
+    """Returns a DenseNet121 model from TorchVision adapted for CIFAR-10."""
+    model = densenet121(num_classes=10)
+
+    # replace w/ smaller input layer
+    model.features.conv0 = torch.nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)
+    nn.init.kaiming_normal_(model.features.conv0.weight, mode="fan_out", nonlinearity="relu")
+
+    return model
+
+
+def MobileNetV2():
+    """Returns a MobileNetV2 model from TorchVision adapted for CIFAR-10."""
+    model = mobilenet_v2(num_classes=10)
+
+    # replace w/ smaller input layer
+    model.features[0][0] = torch.nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1, bias=False)
+    nn.init.kaiming_normal_(model.features[0][0].weight, mode="fan_out", nonlinearity="relu")
+
+    return model
 
 def load_model(model_name: str) -> nn.Module:
     if model_name == "Net":
@@ -86,6 +107,10 @@ def load_model(model_name: str) -> nn.Module:
         return ResNet18()
     elif model_name == "ResNet50":
         return ResNet50()
+    elif model_name == "DenseNet121":
+        return DenseNet121()
+    elif model_name == "MobileNetV2":
+        return MobileNetV2()
     else:
         raise NotImplementedError(f"model {model_name} is not implemented")
 
