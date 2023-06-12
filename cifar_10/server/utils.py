@@ -39,7 +39,7 @@ from torchvision.models import resnet18
 from torchvision.models import resnet50
 from torchvision.models import densenet121, mobilenet_v2
 from torch.utils.data import DataLoader
-DATA_ROOT = Path("./data")
+DATA_ROOT = Path("/lung80")
 #DATA_ROOT = Path("/Users/ahmad/fed_rpp/my_data")
 
 
@@ -141,7 +141,7 @@ def load_model(model_name: str) -> nn.Module:
         raise NotImplementedError(f"model {model_name} is not implemented")
 
 
-"""
+
 # To read files from my machine directory.
 def load_cifar():
     transform = transforms.Compose([transforms.Resize((32,32)),transforms.ToTensor()])
@@ -172,7 +172,7 @@ def load_cifar(download=True) -> Tuple[datasets.CIFAR10, datasets.CIFAR10]:
     testset = torch.utils.data.Subset(testing_set, indices_s)
 
     return trainset, testset
-
+"""
 def train(
     net: Net,
     trainloader: torch.utils.data.DataLoader,
