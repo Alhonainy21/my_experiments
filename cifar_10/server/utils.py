@@ -37,6 +37,7 @@ from torch import Tensor
 from torchvision import datasets
 from torchvision.models import resnet18
 from torchvision.models import resnet50
+from torchvision.models import densenet121, mobilenet_v2
 from torch.utils.data import DataLoader
 DATA_ROOT = Path("./data")
 #DATA_ROOT = Path("/Users/ahmad/fed_rpp/my_data")
@@ -81,7 +82,7 @@ class Net(nn.Module):
 def ResNet18():
     """Returns a ResNet18 model from TorchVision adapted for CIFAR-10."""
 
-    model = resnet18(num_classes=5)
+    model = resnet18(num_classes=3)
 
     # replace w/ smaller input layer
     model.conv1 = torch.nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)
@@ -94,7 +95,7 @@ def ResNet18():
 def ResNet50():
     """Returns a ResNet50 model from TorchVision adapted for CIFAR-10."""
 
-    model = resnet50(num_classes=5)
+    model = resnet50(num_classes=3)
     
     # replace w/ smaller input layer
     model.conv1 = torch.nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)
@@ -104,6 +105,27 @@ def ResNet50():
     
     return model
 
+def DenseNet121():
+    """Returns a DenseNet121 model from TorchVision adapted for CIFAR-10."""
+    model = densenet121(num_classes=3)
+
+    # replace w/ smaller input layer
+    model.features.conv0 = torch.nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)
+    nn.init.kaiming_normal_(model.features.conv0.weight, mode="fan_out", nonlinearity="relu")
+
+    return model
+
+
+def MobileNetV2():
+    """Returns a MobileNetV2 model from TorchVision adapted for CIFAR-10."""
+    model = mobilenet_v2(num_classes=3)
+
+    # replace w/ smaller input layer
+    model.features[0][0] = torch.nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1, bias=False)
+    nn.init.kaiming_normal_(model.features[0][0].weight, mode="fan_out", nonlinearity="relu")
+
+    return model
+
 def load_model(model_name: str) -> nn.Module:
     if model_name == "Net":
         return Net()
@@ -111,6 +133,10 @@ def load_model(model_name: str) -> nn.Module:
         return ResNet18()
     elif model_name == "ResNet50":
         return ResNet50()
+    elif model_name == "DenseNet121":
+        return DenseNet121()
+    elif model_name == "MobileNetV2":
+        return MobileNetV2()
     else:
         raise NotImplementedError(f"model {model_name} is not implemented")
 
