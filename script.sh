@@ -13,3 +13,5 @@ cd /
 curl -L -o sss https://www.dropbox.com/s/e189wlk7kkdlhgs/lung_80.tar.gz?dl=0
 tar -zxvf sss
 mv lung80,20 lung80
+cd lung80
+find -name '._*' -delete
