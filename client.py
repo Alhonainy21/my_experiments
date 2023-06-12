@@ -154,7 +154,7 @@ def main() -> None:
         "--model",
         type=str,
         default="Net",
-        choices=["Net", "ResNet18","ResNet50"],
+        choices=["Net", "ResNet18","ResNet50","DenseNet121","MobileNetV2"],
         help="model to train",
     )
     args = parser.parse_args()
