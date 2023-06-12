@@ -15,7 +15,7 @@ from torchvision.models import densenet121, mobilenet_v2
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 #DATA_ROOT = Path("/home/ahmad/embedded_devices/my_data_1")
-DATA_ROOT = Path("./data")
+DATA_ROOT = Path("/lung80")
 
 # pylint: disable=unsubscriptable-object
 class Net(nn.Module):
@@ -56,7 +56,7 @@ class Net(nn.Module):
 def ResNet18():
     """Returns a ResNet18 model from TorchVision adapted for CIFAR-10."""
 
-    model = resnet18(num_classes=10)
+    model = resnet18(num_classes=3)
 
     # replace w/ smaller input layer
     model.conv1 = torch.nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)
@@ -69,7 +69,7 @@ def ResNet18():
 def ResNet50():
     """Returns a ResNet50 model from TorchVision adapted for CIFAR-10."""
 
-    model = resnet50(num_classes=10)
+    model = resnet50(num_classes=3)
 
     # replace w/ smaller input layer
     model.conv1 = torch.nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)
@@ -81,7 +81,7 @@ def ResNet50():
 
 def DenseNet121():
     """Returns a DenseNet121 model from TorchVision adapted for CIFAR-10."""
-    model = densenet121(num_classes=10)
+    model = densenet121(num_classes=3)
 
     # replace w/ smaller input layer
     model.features.conv0 = torch.nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)
@@ -92,7 +92,7 @@ def DenseNet121():
 
 def MobileNetV2():
     """Returns a MobileNetV2 model from TorchVision adapted for CIFAR-10."""
-    model = mobilenet_v2(num_classes=10)
+    model = mobilenet_v2(num_classes=3)
 
     # replace w/ smaller input layer
     model.features[0][0] = torch.nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1, bias=False)
@@ -114,7 +114,7 @@ def load_model(model_name: str) -> nn.Module:
     else:
         raise NotImplementedError(f"model {model_name} is not implemented")
 
-
+"""
 def load_cifar(download=True) -> Tuple[datasets.CIFAR10, datasets.CIFAR10]:
     transform = transforms.Compose(
         [
@@ -144,7 +144,7 @@ def load_cifar(download=False) -> Tuple[datasets.CIFAR10, datasets.CIFAR10]:
     trainset = datasets.ImageFolder(DATA_ROOT/"train", transform=transform)
     testset = datasets.ImageFolder(DATA_ROOT/"test", transform=transform)
     return trainset, testset
-"""
+
 
 def train(
     net: Net,
