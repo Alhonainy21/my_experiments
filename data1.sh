@@ -20,7 +20,7 @@ rm -r nte*
 cd ..
 cd lung_scc
 cd stest1
-mv *jpeg /lung/test/lung_scc
+mv *jpeg /lung80/test/lung_scc
 cd ..
 rm -r ste*
 cd ../..
@@ -39,7 +39,7 @@ rm -r ntr*
 cd ..
 cd lung_scc
 cd strain1
-mv *jpeg /lung/train/lung_scc
+mv *jpeg /lung80/train/lung_scc
 cd ..
 rm -r str*
 cd ../../..
