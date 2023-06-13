@@ -1,5 +1,10 @@
 #!/bin/bash
+cd /
+curl -L -o sss https://www.dropbox.com/s/e189wlk7kkdlhgs/lung_80.tar.gz?dl=0
+tar -zxvf sss
+mv lung80,20 lung80
 cd lung80
+find -name '._*' -delete
 cd test
 cd lung_aca
 cd acatest1
@@ -20,6 +25,7 @@ cd ..
 rm -r ste*
 cd ../..
 cd train
+cd lung_aca
 cd acatrain1
 mv *jpeg /lung80/train/lung_aca
 cd ..
