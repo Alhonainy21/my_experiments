@@ -38,6 +38,7 @@ from torchvision import datasets
 from torchvision.models import resnet18
 from torchvision.models import resnet50
 from torchvision.models import densenet121, mobilenet_v2
+from efficientnet_pytorch import EfficientNet
 from torch.utils.data import DataLoader
 DATA_ROOT = Path("/lung80")
 #DATA_ROOT = Path("/Users/ahmad/fed_rpp/my_data")
@@ -126,6 +127,16 @@ def MobileNetV2():
 
     return model
 
+def EfficientNetB0():
+    """Returns an EfficientNetB0 model from efficientnet_pytorch adapted for CIFAR-10."""
+    model = EfficientNet.from_pretrained('efficientnet-b0', num_classes=3)
+
+    # replace w/ smaller input layer
+    model._conv_stem = torch.nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1, bias=False)
+    nn.init.kaiming_normal_(model._conv_stem.weight, mode="fan_out", nonlinearity="relu")
+
+    return model
+
 def load_model(model_name: str) -> nn.Module:
     if model_name == "Net":
         return Net()
@@ -137,6 +148,8 @@ def load_model(model_name: str) -> nn.Module:
         return DenseNet121()
     elif model_name == "MobileNetV2":
         return MobileNetV2()
+    elif model_name == "EfficientNetB0":
+        return EfficientNetB0()
     else:
         raise NotImplementedError(f"model {model_name} is not implemented")
 
